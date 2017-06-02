@@ -1,5 +1,5 @@
 Name:          zookeeper-lite
-Version:       3.4.9
+Version:       3.4.10
 Release:       1%{?dist}
 Summary:       A lite version of the zookeeper service, without the clients, bindings or netty.
 License:       ASL 2.0 and BSD
@@ -117,5 +117,8 @@ exit 0
 
 
 %changelog
+* Fri Jun 02 2017 Tristan Cacqueray <tdecacqu@redhat.com> 3.4.10-1
+- Bump to 3.4.10 to fix CVE-2017-5637
+
 * Mon Feb 20 2017 Tristan Cacqueray <tdecacqu@redhat.com> 3.4.9-1
 - First package
