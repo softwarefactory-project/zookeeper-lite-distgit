@@ -1,6 +1,6 @@
 Name:          zookeeper-lite
 Version:       3.4.10
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       A lite version of the zookeeper service, without the clients, bindings or netty.
 License:       ASL 2.0 and BSD
 URL:           https://zookeeper.apache.org/
@@ -77,7 +77,7 @@ install -d -m 755 %{buildroot}%{_sysconfdir}/zookeeper
 install -p -D -m 644 conf/configuration.xsl conf/log4j.properties %{buildroot}%{_sysconfdir}/zookeeper
 install -p -D -m 644 conf/zoo_sample.cfg %{buildroot}%{_sysconfdir}/zookeeper/zoo.cfg
 
-install -p -D -m 755 %{SOURCE1} %{buildroot}%{_unitdir}/zookeeper.service
+install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/zookeeper.service
 
 install -d -m 755 %{buildroot}%{_sysconfdir}/sysconfig/
 echo "CLASSPATH=$(build-classpath jline log4j):/usr/share/java/slf4j/slf4j-api.jar:/usr/share/java/slf4j/slf4j-log4j12.jar:/usr/share/java/zookeeper.jar" > %{buildroot}%{_sysconfdir}/sysconfig/zookeeper
@@ -117,6 +117,9 @@ exit 0
 
 
 %changelog
+* Tue Sep 05 2017 Tristan Cacqueray <tdecacqu@redhat.com> 3.4.10-2
+- Change zookeeper.service mode to 644
+
 * Fri Jun 02 2017 Tristan Cacqueray <tdecacqu@redhat.com> 3.4.10-1
 - Bump to 3.4.10 to fix CVE-2017-5637
 
