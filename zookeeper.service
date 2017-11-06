@@ -7,7 +7,7 @@ User=zookeeper
 Group=zookeeper
 SyslogIdentifier=zookeeper
 EnvironmentFile=/etc/sysconfig/zookeeper
-ExecStart=/usr/bin/java -Xmx${ZK_HEAP_LIMIT} -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.local.only=false -Dlog4j.configuration=file:///etc/zookeeper/log4j.properties org.apache.zookeeper.server.quorum.QuorumPeerMain /etc/zookeeper/zoo.cfg
+ExecStart=/usr/libexec/zookeeper
 ExecStartPost=/usr/bin/wait4service localhost 2181
 # stupid java exit codes
 SuccessExitStatus=130 SIGINT

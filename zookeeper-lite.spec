@@ -1,12 +1,15 @@
 Name:          zookeeper-lite
 Version:       3.4.10
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       A lite version of the zookeeper service, without the clients, bindings or netty.
 License:       ASL 2.0 and BSD
 URL:           https://zookeeper.apache.org/
+
 Source0:       https://www.apache.org/dist/zookeeper/zookeeper-%{version}/zookeeper-%{version}.tar.gz
 Source1:       zookeeper.service
 Source2:       pom.template
+Source3:       zookeeper.sh
+Source4:       log4j.properties
 
 BuildRequires: ant
 BuildRequires: systemd
@@ -74,10 +77,12 @@ cp %{SOURCE2} src/
 install -p -D -m 644 build/zookeeper-%{version}.jar %{buildroot}%{_javadir}/zookeeper.jar
 
 install -d -m 755 %{buildroot}%{_sysconfdir}/zookeeper
-install -p -D -m 644 conf/configuration.xsl conf/log4j.properties %{buildroot}%{_sysconfdir}/zookeeper
+install -p -D -m 644 conf/configuration.xsl %{SOURCE4} %{buildroot}%{_sysconfdir}/zookeeper
 install -p -D -m 644 conf/zoo_sample.cfg %{buildroot}%{_sysconfdir}/zookeeper/zoo.cfg
 
 install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/zookeeper.service
+
+install -p -D -m 755 %{SOURCE3} %{buildroot}%{_libexecdir}/zookeeper
 
 install -d -m 755 %{buildroot}%{_sysconfdir}/sysconfig/
 echo "CLASSPATH=$(build-classpath jline log4j):/usr/share/java/slf4j/slf4j-api.jar:/usr/share/java/slf4j/slf4j-log4j12.jar:/usr/share/java/zookeeper.jar" > %{buildroot}%{_sysconfdir}/sysconfig/zookeeper
@@ -112,11 +117,15 @@ exit 0
 %{_sysconfdir}/zookeeper
 %{_sysconfdir}/sysconfig/zookeeper
 %{_unitdir}/zookeeper.service
+%{_libexecdir}/zookeeper
 %attr(0750,zookeeper,zookeeper) %dir %{_localstatedir}/log/zookeeper
 %attr(0700,zookeeper,zookeeper) %dir %{_sharedstatedir}/zookeeper
 
 
 %changelog
+* Mon Nov 06 2017 Tristan Cacqueray <tdecacqu@redhat.com> 3.4.10-3
+- Add better log4j properties and zookeeper libexec script
+
 * Tue Sep 05 2017 Tristan Cacqueray <tdecacqu@redhat.com> 3.4.10-2
 - Change zookeeper.service mode to 644
 
