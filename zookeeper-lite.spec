@@ -1,6 +1,6 @@
 Name:          zookeeper-lite
-Version:       3.4.10
-Release:       3%{?dist}
+Version:       3.4.14
+Release:       1%{?dist}
 Summary:       A lite version of the zookeeper service, without the clients, bindings or netty.
 License:       ASL 2.0 and BSD
 URL:           https://zookeeper.apache.org/
@@ -123,6 +123,9 @@ exit 0
 
 
 %changelog
+* Thu Aug 15 2019 Tristan Cacqueray <tdecacqu@redhat.com> - 3.4.14-1
+- Bump to 3.4.14
+
 * Mon Nov 06 2017 Tristan Cacqueray <tdecacqu@redhat.com> 3.4.10-3
 - Add better log4j properties and zookeeper libexec script
 
